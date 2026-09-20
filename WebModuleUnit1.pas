@@ -76,6 +76,8 @@ begin
   if High(datas) = 3 then
   begin
     filename:=TPath.Combine('.\img',user,datas[3]);
+    if not TPath.Exists(filename) then
+      Exit;
     stream:=TFileStream.Create(filename,fmOpenRead or fmShareDenyWrite);
     jpg:=TJpegImage.Create;
     try
