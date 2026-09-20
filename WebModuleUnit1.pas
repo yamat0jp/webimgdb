@@ -38,7 +38,7 @@ implementation
 
 {$R *.dfm}
 
-uses System.IOUtils, Jpeg, System.Types;
+uses System.IOUtils, Jpeg, System.Types, System.RegularExpressions;
 
 procedure TWebModule1.WebModule1DefaultHandlerAction(Sender: TObject;
   Request: TWebRequest; Response: TWebResponse; var Handled: Boolean);
@@ -73,13 +73,9 @@ begin
     user:=datas[2]
   else
     Handled:=false;
-  if (High(datas) = 3) and not datas[3].IsEmpty then
+  if High(datas) = 3 then
   begin
-    id:=datas[3].ToInteger;
-    datas:=TDirectory.GetFiles('.\img\'+user,'*.jpg');
-    if High(datas) < id then
-      Exit;
-    filename:=datas[id];
+    filename:=TPath.Combine('.\img',user,datas[3]);
     stream:=TFileStream.Create(filename,fmOpenRead or fmShareDenyWrite);
     jpg:=TJpegImage.Create;
     try
@@ -96,7 +92,11 @@ begin
   else if TPath.Exists('.\img\'+user) then
   begin
     FDMemTable1.Open;
-    datas := TDirectory.GetFiles('.\img\'+user);
+    datas := TDirectory.GetFiles('.\img\'+user,'*',TSearchOption.soTopDirectoryOnly,
+      function(const Path:string;const SearchRec: TSearchRec): Boolean
+      begin
+        result:=TRegEx.IsMatch(SearchRec.Name,'\.jpe?g$',[roIgnoreCase]);
+      end);
     for var i := 0 to High(datas) do
       FDMemTable1.AppendRecord([user,i,TPath.GetFileName(datas[i])]);
     WebStencilsProcessor2.AddVar('Images',FDMemTable1,false);

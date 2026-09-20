@@ -31,8 +31,8 @@
     <a href="/top">TOPに戻る</a>
     <div class="thumnail-grid">
     @ForEach (var Img in Images) {
-        <a class="thumbnail" href="/users/@page.user/@Img.Index">
-            <img class="thumbnail" src="/users/@page.user/@Img.Index" alt="@Img.Url" loading="lazy">
+        <a class="thumbnail" href="/users/@page.user/@Img.Url" target="_blank">
+            <img class="thumbnail" src="/users/@page.user/@Img.Url" alt="@Img.Url" loading="lazy">
         </a>
     }
     </div>
