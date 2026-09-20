@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>@page.user 様のギャラリー</title>
     <style>
     .thumbnail-grid {
       display: grid;
@@ -19,8 +19,8 @@
     }
 
     .thumbnail img {
-      width: 200px;
-      height: 300px;
+      width: 25%;
+      height: 25%;
       object-fit: cover;
       display: block;
     }
@@ -28,6 +28,7 @@
 </head>
 <body>
     <h1>@page.user</h1>
+    <a href="/top">TOPに戻る</a>
     <div class="thumnail-grid">
     @ForEach (var Img in Images) {
         <a class="thumbnail" href="/users/@page.user/@Img.Index">

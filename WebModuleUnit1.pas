@@ -38,7 +38,7 @@ implementation
 
 {$R *.dfm}
 
-uses System.IOUtils;
+uses System.IOUtils, Jpeg, System.Types;
 
 procedure TWebModule1.WebModule1DefaultHandlerAction(Sender: TObject;
   Request: TWebRequest; Response: TWebResponse; var Handled: Boolean);
@@ -65,12 +65,14 @@ var
   datas: TArray<string>;
   user, filename: string;
   id: integer;
+  jpg: TJpegImage;
+  stream: TStream;
 begin
   datas:=Request.PathInfo.Split(['/']);
   if High(datas) >= 2 then
     user:=datas[2]
   else
-    Exit;
+    Handled:=false;
   if (High(datas) = 3) and not datas[3].IsEmpty then
   begin
     id:=datas[3].ToInteger;
@@ -78,20 +80,32 @@ begin
     if High(datas) < id then
       Exit;
     filename:=datas[id];
+    stream:=TFileStream.Create(filename,fmOpenRead or fmShareDenyWrite);
+    jpg:=TJpegImage.Create;
+    try
+      jpg.LoadFromStream(stream);
+      jpg.Scale:=jsEighth;
+      stream.Position:=0;
+      jpg.SaveToStream(stream);
+    finally
+      jpg.Free;
+    end;
     Response.ContentType:='image/jpeg';
-    Response.ContentStream:=TFileStream.Create(filename,fmOpenRead or fmShareDenyWrite);
+    Response.ContentStream:=stream;
   end
   else if TPath.Exists('.\img\'+user) then
   begin
     FDMemTable1.Open;
-    Response.ContentType:='text/html;charset=utf8';
     datas := TDirectory.GetFiles('.\img\'+user);
     for var i := 0 to High(datas) do
       FDMemTable1.AppendRecord([user,i,TPath.GetFileName(datas[i])]);
     WebStencilsProcessor2.AddVar('Images',FDMemTable1,false);
+    Response.ContentType:='text/html;charset=utf8';
     Response.Content:=WebStencilsProcessor2.Content;
     FDMemTable1.Close;
-  end;
+  end
+  else
+    Handled:=false;
 end;
 
 end.

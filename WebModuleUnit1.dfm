@@ -8,6 +8,7 @@ object WebModule1: TWebModule1
       OnAction = WebModule1DefaultHandlerAction
     end
     item
+      MethodType = mtGet
       Name = 'WebActionItem1'
       PathInfo = '/users/*'
       OnAction = WebModule1WebActionItem1Action
@@ -22,8 +23,7 @@ object WebModule1: TWebModule1
   end
   object WebStencilsProcessor1: TWebStencilsProcessor
     Engine = WebStencilsEngine1
-    InputFileName = 'index.html'
-    PathTemplate = '/img/{user}'
+    InputFileName = '.\templates\index.html'
     Left = 296
     Top = 40
   end
@@ -43,18 +43,18 @@ object WebModule1: TWebModule1
     Top = 128
     object FDMemTable1Name: TStringField
       FieldName = 'Name'
-      Size = 0
     end
     object FDMemTable1Index: TIntegerField
       FieldName = 'Index'
     end
     object FDMemTable1filename: TStringField
       FieldName = 'Url'
+      Size = 40
     end
   end
   object WebStencilsProcessor2: TWebStencilsProcessor
     Engine = WebStencilsEngine1
-    InputFileName = 'user.html'
+    InputFileName = '.\templates\user.html'
     PathTemplate = '/users/{user}'
     Left = 296
     Top = 128
