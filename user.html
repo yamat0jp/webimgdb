@@ -1,0 +1,39 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+    .thumbnail-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+      gap: 16px;
+    }
+
+    .thumbnail {
+      aspect-ratio: 1 / 1; /* 正方形(1:1)や横長(16:9)など、アスペクト比を固定 */
+      overflow: hidden;
+      border-radius: 8px;
+      background-color: #f0f0f0;
+    }
+
+    .thumbnail img {
+      width: 200px;
+      height: 300px;
+      object-fit: cover;
+      display: block;
+    }
+    </style>
+</head>
+<body>
+    <h1>@page.user</h1>
+    <div class="thumnail-grid">
+    @ForEach (var Img in Images) {
+        <a class="thumbnail" href="/users/@page.user/@Img.Index">
+            <img class="thumbnail" src="/users/@page.user/@Img.Index" alt="@Img.Url" loading="lazy">
+        </a>
+    }
+    </div>
+</body>
+</html>
