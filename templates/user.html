@@ -33,7 +33,7 @@
     <div class="thumnail-grid">
     @ForEach (var Img in Images) {
         <a class="thumbnail" href="@Img.Url" target="_blank">
-            <img class="thumbnail" src="@Img.Url" alt="@Img.Name の@Img.Index 枚目の画像">
+            <img class="thumbnail" src="@Img.Url?thmb=yes" alt="@Img.Name の@Img.Index 枚目の画像">
         </a>
     }
     </div>

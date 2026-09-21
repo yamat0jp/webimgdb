@@ -84,7 +84,8 @@ begin
     jpg:=TJpegImage.Create;
     try
       jpg.LoadFromStream(stream);
-      jpg.Scale:=jsEighth;
+      if Request.QueryFields.Values['thmb'].ToLower = 'yes' then
+        jpg.Scale:=jsEighth;
       stream.Position:=0;
       jpg.SaveToStream(stream);
     finally
