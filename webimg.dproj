@@ -134,6 +134,7 @@
         <None Include="templates\index.html"/>
         <None Include="templates\user.html"/>
         <None Include="README.md"/>
+        <None Include="templates\gemini.html"/>
         <BuildConfiguration Include="Base">
             <Key>Base</Key>
         </BuildConfiguration>
@@ -165,6 +166,12 @@
                 <DeployFile LocalName="Win32\Debug\webimg.exe" Configuration="Debug" Class="ProjectOutput">
                     <Platform Name="Win32">
                         <RemoteName>webimg.exe</RemoteName>
+                        <Overwrite>true</Overwrite>
+                    </Platform>
+                </DeployFile>
+                <DeployFile LocalName="templates\gemini.html" Configuration="Debug" Class="ProjectFile">
+                    <Platform Name="Win32">
+                        <RemoteDir>.\</RemoteDir>
                         <Overwrite>true</Overwrite>
                     </Platform>
                 </DeployFile>

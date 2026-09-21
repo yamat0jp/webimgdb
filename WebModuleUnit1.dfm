@@ -54,7 +54,7 @@ object WebModule1: TWebModule1
   end
   object WebStencilsProcessor2: TWebStencilsProcessor
     Engine = WebStencilsEngine1
-    InputFileName = '.\templates\user.html'
+    InputFileName = '.\templates\gemini.html'
     PathTemplate = '/users/{user}'
     OnValue = WebStencilsProcessor2Value
     Left = 296

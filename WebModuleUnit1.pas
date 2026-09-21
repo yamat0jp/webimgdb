@@ -66,7 +66,6 @@ procedure TWebModule1.WebModule1WebActionItem1Action(Sender: TObject;
 var
   datas: TArray<string>;
   user, filename, url: string;
-  id: integer;
   jpg: TJpegImage;
   stream: TStream;
 begin
@@ -86,7 +85,6 @@ begin
       jpg.LoadFromStream(stream);
       if Request.QueryFields.Values['thmb'].ToLower = 'yes' then
         jpg.Scale:=jsEighth;
-      stream.Position:=0;
       jpg.SaveToStream(stream);
     finally
       jpg.Free;
@@ -97,7 +95,7 @@ begin
   else if TPath.Exists('.\img\'+user) then
   begin
     FDMemTable1.Open;
-    datas := TDirectory.GetFiles('.\img\'+user,'*',TSearchOption.soTopDirectoryOnly,
+    datas := TDirectory.GetFiles('.\img\'+user,'*.j*',TSearchOption.soTopDirectoryOnly,
       function(const Path:string;const SearchRec: TSearchRec): Boolean
       begin
         result:=TRegEx.IsMatch(SearchRec.Name,'\.jpe?g$',[roIgnoreCase]);
