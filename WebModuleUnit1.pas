@@ -103,7 +103,7 @@ begin
     for var i := 0 to High(datas) do
     begin
       url:=Format('/users/%s/%s',[user,TPath.GetFileName(datas[i])]);
-      FDMemTable1.AppendRecord([i,user,url]);
+      FDMemTable1.AppendRecord([i+1,user,url]);
     end;
     WebStencilsProcessor2.AddVar('Images',FDMemTable1,false);
     Response.ContentType:='text/html;charset=utf8';

@@ -46,15 +46,16 @@ object WebModule1: TWebModule1
     end
     object FDMemTable1Name: TStringField
       FieldName = 'Name'
+      Size = 60
     end
     object FDMemTable1filename: TStringField
       FieldName = 'Url'
-      Size = 40
+      Size = 120
     end
   end
   object WebStencilsProcessor2: TWebStencilsProcessor
     Engine = WebStencilsEngine1
-    InputFileName = '.\templates\gemini.html'
+    InputFileName = '.\templates\gphoto.html'
     PathTemplate = '/users/{user}'
     OnValue = WebStencilsProcessor2Value
     Left = 296
