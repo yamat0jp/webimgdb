@@ -23,6 +23,8 @@ type
       Request: TWebRequest; Response: TWebResponse; var Handled: Boolean);
     procedure WebModule1WebActionItem1Action(Sender: TObject;
       Request: TWebRequest; Response: TWebResponse; var Handled: Boolean);
+    procedure WebStencilsProcessor2Value(Sender: TObject; const AObjectName,
+        APropName: string; var AValue: string; var AHandled: Boolean);
   private
     { Private declarations }
   public
@@ -51,7 +53,7 @@ begin
   for var i := 0 to High(datas) do
   begin
     user:=TPath.GetFileName(datas[i]);
-    FDMemTable1.AppendRecord([user,i,nil]);
+    FDMemTable1.AppendRecord([i,user,nil]);
   end;
   WebStencilsProcessor1.AddVar('Users',FDMemTable1,false);
   Response.ContentType:='text/html;charset=utf8';
@@ -100,7 +102,7 @@ begin
         result:=TRegEx.IsMatch(SearchRec.Name,'\.jpe?g$',[roIgnoreCase]);
       end);
     for var i := 0 to High(datas) do
-      FDMemTable1.AppendRecord([user,i,TPath.GetFileName(datas[i])]);
+      FDMemTable1.AppendRecord([i,user,TPath.GetFileName(datas[i])]);
     WebStencilsProcessor2.AddVar('Images',FDMemTable1,false);
     Response.ContentType:='text/html;charset=utf8';
     Response.Content:=WebStencilsProcessor2.Content;
@@ -108,6 +110,13 @@ begin
   end
   else
     Handled:=false;
+end;
+
+procedure TWebModule1.WebStencilsProcessor2Value(Sender: TObject; const
+    AObjectName, APropName: string; var AValue: string; var AHandled: Boolean);
+begin
+  if AObjectName = 'Cnt' then
+    AValue:=FDMemTable1.RecordCount.ToString;
 end;
 
 end.

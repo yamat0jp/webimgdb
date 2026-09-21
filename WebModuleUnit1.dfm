@@ -41,11 +41,11 @@ object WebModule1: TWebModule1
     StoreDefs = True
     Left = 128
     Top = 128
-    object FDMemTable1Name: TStringField
-      FieldName = 'Name'
-    end
     object FDMemTable1Index: TIntegerField
       FieldName = 'Index'
+    end
+    object FDMemTable1Name: TStringField
+      FieldName = 'Name'
     end
     object FDMemTable1filename: TStringField
       FieldName = 'Url'
@@ -56,6 +56,7 @@ object WebModule1: TWebModule1
     Engine = WebStencilsEngine1
     InputFileName = '.\templates\user.html'
     PathTemplate = '/users/{user}'
+    OnValue = WebStencilsProcessor2Value
     Left = 296
     Top = 128
   end
