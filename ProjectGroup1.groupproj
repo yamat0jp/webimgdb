@@ -1,0 +1,36 @@
+﻿<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+    <PropertyGroup>
+        <ProjectGuid>{AD304D8F-BB2D-4E69-B90C-183237C3600C}</ProjectGuid>
+    </PropertyGroup>
+    <ItemGroup>
+        <Projects Include="webimg.dproj">
+            <Dependencies/>
+        </Projects>
+    </ItemGroup>
+    <ProjectExtensions>
+        <Borland.Personality>Default.Personality.12</Borland.Personality>
+        <Borland.ProjectType/>
+        <BorlandProject>
+            <Default.Personality/>
+        </BorlandProject>
+    </ProjectExtensions>
+    <Target Name="webimg">
+        <MSBuild Projects="webimg.dproj"/>
+    </Target>
+    <Target Name="webimg:Clean">
+        <MSBuild Projects="webimg.dproj" Targets="Clean"/>
+    </Target>
+    <Target Name="webimg:Make">
+        <MSBuild Projects="webimg.dproj" Targets="Make"/>
+    </Target>
+    <Target Name="Build">
+        <CallTarget Targets="webimg"/>
+    </Target>
+    <Target Name="Clean">
+        <CallTarget Targets="webimg:Clean"/>
+    </Target>
+    <Target Name="Make">
+        <CallTarget Targets="webimg:Make"/>
+    </Target>
+    <Import Project="$(BDS)\Bin\CodeGear.Group.Targets" Condition="Exists('$(BDS)\Bin\CodeGear.Group.Targets')"/>
+</Project>

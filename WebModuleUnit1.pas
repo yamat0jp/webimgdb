@@ -65,7 +65,7 @@ procedure TWebModule1.WebModule1WebActionItem1Action(Sender: TObject;
   Request: TWebRequest; Response: TWebResponse; var Handled: Boolean);
 var
   datas: TArray<string>;
-  user, filename: string;
+  user, filename, url: string;
   id: integer;
   jpg: TJpegImage;
   stream: TStream;
@@ -102,7 +102,10 @@ begin
         result:=TRegEx.IsMatch(SearchRec.Name,'\.jpe?g$',[roIgnoreCase]);
       end);
     for var i := 0 to High(datas) do
-      FDMemTable1.AppendRecord([i,user,TPath.GetFileName(datas[i])]);
+    begin
+      url:=Format('/users/%s/%s',[user,TPath.GetFileName(datas[i])]);
+      FDMemTable1.AppendRecord([i,user,url]);
+    end;
     WebStencilsProcessor2.AddVar('Images',FDMemTable1,false);
     Response.ContentType:='text/html;charset=utf8';
     Response.Content:=WebStencilsProcessor2.Content;
