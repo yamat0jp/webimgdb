@@ -44,17 +44,15 @@ uses System.IOUtils, Jpeg, System.Types, System.RegularExpressions;
 
 procedure TWebModule1.WebModule1DefaultHandlerAction(Sender: TObject;
   Request: TWebRequest; Response: TWebResponse; var Handled: Boolean);
-var
-  user: string;
-  datas: TArray<string>;
 begin
   FDMemTable1.Open;
-  datas:=TDirectory.GetDirectories('.\img\');
-  for var i := 0 to High(datas) do
-  begin
-    user:=TPath.GetFileName(datas[i]);
-    FDMemTable1.AppendRecord([i,user,nil]);
-  end;
+  for var user in TDirectory.GetDirectories('.\img\') do
+    with FDMemTable1 do
+    begin
+      Append;
+      FieldByName('Name').AsString:=TPath.GetFileName(user);
+      Post;
+    end;
   WebStencilsProcessor1.AddVar('Users',FDMemTable1,false);
   Response.ContentType:='text/html;charset=utf8';
   Response.Content := WebStencilsProcessor1.Content;

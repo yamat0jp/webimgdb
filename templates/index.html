@@ -15,7 +15,7 @@
     <h1>ギャラリー</h1>
     <select name="selection" onchange="if(this.value) window.location.href='/users/'+this.value;">
         <option value="">ユーザーギャラリー</option>
-        @ForEach (var User in Users) {<option value="@User.Name">@Users.Name 様</option>}
+        @ForEach (var User in Users) {<option value="@User.Name">@User.Name 様</option>}
     </select>
     </div>
 </body>
